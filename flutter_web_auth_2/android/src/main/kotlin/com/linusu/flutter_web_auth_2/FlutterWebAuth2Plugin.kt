@@ -51,6 +51,8 @@ class FlutterWebAuth2Plugin(private var context: Context? = null, private var ch
           callbacks[callbackUrlScheme] = resultCallback
 
           val intent = CustomTabsIntent.Builder().build()
+          intent.intent.setPackage("com.android.chrome")
+
           val keepAliveIntent = Intent(context, KeepAliveService::class.java)
 
           intent.intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -58,6 +60,7 @@ class FlutterWebAuth2Plugin(private var context: Context? = null, private var ch
               intent.intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
           }
           intent.intent.putExtra("android.support.customtabs.extra.KEEP_ALIVE", keepAliveIntent)
+
 
           intent.launchUrl(context!!, url)
         }
